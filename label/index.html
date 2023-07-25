@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DineUp Label Generator</title>
+</head>
+
+<body>
+  <div id="canvas-container"></div>
+  <script>
+    const { order, order_items } = JSON.parse(atob(decodeURIComponent(window.location.search.split('?data=')[1])));
+
+    const orderText = [
+      `${order.last_name}, ${order.first_name}`,
+      `${order.name} - ${order.flight_identifier}`,
+      order.flight_date.split('.')[0].split(':').reverse().slice(1).reverse().join(':').split('T').join(' '),
+    ];
+
+    const texts = order_items.name.map((name, i) => ([
+      ...orderText,
+      `(${order_items.quantity[i]}) ${name}`,
+    ]));
+    
+    let height = 45;
+    texts.forEach((text, i) => {
+      text.forEach((line, j) => height += 20);
+      height += 140;
+    });
+    document.querySelector("#canvas-container").innerHTML = `<canvas id="canvas" width="300" height="${height}"></canvas>`;
+    const canvas = document.getElementById("canvas")
+    const ctx = canvas.getContext("2d");
+
+    ctx.font = '20px Arial';
+    
+    let cursor = 0;
+    texts.forEach((text, i) => {
+      let img = new Image();
+      img.src = './logo.png';
+      const _cursor = cursor;
+      img.onload = () => ctx.drawImage(img, 0, _cursor, 200, 45);
+      cursor += 45;
+      text.forEach((line, j) => {
+        ctx.fillText(line, 0, cursor += 20);
+      })
+      ctx.fillText(`Item ${i + 1} of ${texts.length}`, 0, cursor += 20);
+      cursor += 90;
+    });
+
+    setTimeout(() => {
+      const dataURL = canvas.toDataURL();
+      const img = document.createElement("img");
+      img.src = dataURL;
+      document.body.appendChild(img);
+      canvas.style.display = "none";
+    }, 1000);
+
+  </script>
+</body>
+
+</html>
