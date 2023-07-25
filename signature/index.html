@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DineUp Signature Generator</title>
+  <style>
+    input {
+      width: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>DineUp Signature Generator</h1>
+  <div id="inputs">
+    <label>Name: <input id="name" /></label>
+    <br /><br />
+    <label>Role: <input id="line1" /></label>
+    <br /><br />
+    <label>Department: <input id="line2" /></label>
+    <br /><br />
+    <label>Phone: <input id="phone" placeholder="+1 (555) 123-4567" /></label>
+    <br /><br />
+    <label>Email: <input id="email" placeholder="hello@dineup.com" /></label>
+    <br /><br />
+    <label>LinkedIn: <input id="linkedin" placeholder="linkedin.com/in/username" /></label>
+    <br /><br />
+    <label>Meeting Link: <input id="meeting" placeholder="dineup.com/meetings/username" /></label>
+  </div>
+  <br />
+  <br />
+  Highlight and copy content below, then paste into signature field
+  <br />
+  <br />
+  <br />
+  <br />
+  <table style="font-family: Arial;" cellspacing="0" cellpadding="0">
+    <tbody>
+      <tr>
+        <td>
+          <table style="font-family: Arial;" cellspacing="0" cellpadding="0">
+            <tbody>
+              <tr>
+                <td style="vertical-align: middle;">
+                  <h2 color="#002357" style="margin: 0px; color: rgb(0, 35, 87); font-size: 24px;" class="name">
+
+                  </h2>
+                  <h4 color="#002357" class="line1"
+                    style="margin: 0px; color: rgb(0, 35, 87); line-height: 24px; font-size: 18px; font-weight: normal;">
+
+                  </h4>
+                  <h5 color="#002357" class="line2"
+                    style="margin: 0px; color: rgb(0, 35, 87); line-height: 24px; font-size: 14px;">
+                  </h5>
+                  <div style="margin-top: 5px;">
+                    <a href="https://dineup.com" style="text-decoration: none;">
+                      <h1 color="#002357" class="line2"
+                      style="margin: 0px;"><span style="color: rgb(0, 35, 87); line-height: 24px; font-size: 36px;">Dine</span><span style="color: #28aaF0; line-height: 24px; font-size: 36px;">Up</span></h1>
+                    </a>
+                  </div>
+                </td>
+                <td width="10">
+                  <div style="width: 10px;"></div>
+                </td>
+                <td color="#002357" direction="vertical"
+                  style="width: 1px; border-bottom: medium none; border-left: 1px solid rgb(0, 35, 87);" width="1"
+                  height="auto"></td>
+                <td width="10">
+                  <div style="width: 10px;"></div>
+                </td>
+                <td style="vertical-align: middle;">
+                  <div style="margin-bottom: 5px;">
+                    <span width="11" style="display: inline-block;"><a
+                      href="" color="#002357" class="phone"
+                      style="text-decoration: none; color: rgb(0, 35, 87); font-size: 12px;"></a>
+                  </div>
+                  <div style="margin-bottom: 5px;">
+                    <span width="11" style="display: inline-block;"><a
+                      href="" color="#002357" class="email"
+                      style="text-decoration: none; color: rgb(0, 35, 87); font-size: 12px;"></a>
+                  </div>
+                  <div style="margin-bottom: 5px;">
+                    <span width="11" style="display: inline-block;"><a class="linkedin"
+                      href="" color="#002357"
+                      style="text-decoration: none; color: rgb(0, 35, 87); font-size: 12px;"></a>
+                  </div>
+                  <div class="meeting-div" style="visibility: hidden;">
+                    <span width="11" style="display: inline-block;"><a class="meeting"
+                      href="" color="#002357"
+                      style="text-decoration: none; color: rgb(0, 35, 87); font-size: 12px;"></a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <span style="font-size: 10px; color: gray">DISCLAIMER: This email and any attachments may contain proprietary company information, which is confidential and intended solely for the use of the named recipient(s). Any dissemination, distribution, or copying of this communication without the explicit authorization of DineUp Inc. is strictly prohibited. If you have received this email in error, please notify the sender immediately and delete the email and any attachments.</span>
+  <script>
+    addEventListener('DOMContentLoaded', () => {
+      const handler = (e) => {
+        switch (e.target.getAttribute('id')) {
+          case 'email':
+            document.querySelector(`.email`).setAttribute('href', `mailto:${e.target.value}`);
+            break;
+          case 'phone':
+            document.querySelector(`.phone`).setAttribute('href', `tel:${e.target.value}`);
+            break;
+          case 'linkedin':
+            document.querySelector(`.linkedin`).setAttribute('href', `https://${e.target.value.toLowerCase().replace('http://', '').replace('https://', '')}`);
+            break;
+          case 'meeting':
+            document.querySelector(`.meeting`).setAttribute('href', `https://${e.target.value.toLowerCase().replace('http://', '').replace('https://', '')}`);
+            document.querySelector(`.meeting-div`).style.visibility = e.target.value ? 'visible' : 'hidden';
+            break;
+          default:
+            break;
+        }
+        document.querySelector(`.${e.target.getAttribute('id')}`).textContent = e.target.value;
+      };
+      ['keyup', 'change'].forEach((event) => document.querySelector('#inputs').addEventListener(event, handler));
+      [...document.querySelectorAll('#inputs input')].forEach(target => handler({ target }));
+    });
+  </script>
+</body>
+
+</html>
