@@ -7,25 +7,27 @@
   <title>Bootstrap demo</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-  <!-- <style>
-    /* Chrome, Safari, Edge, Opera
+  <style>
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
       -webkit-appearance: none;
       margin: 0;
     }
 
-    /* Firefox */
     input[type=number] {
       -moz-appearance: textfield;
-    } */
-  </style> -->
+      appearance: textfield;
+    }
+  </style>
 </head>
 
 <body>
   <main class="container">
     <h1>Order Form</h1>
     <form action="https://dineup-orders.kevin-6b9.workers.dev/" method="post">
+      <input type="hidden" name="hutk" value="">
+      <input type="hidden" name="pageName" value="">
+      <input type="hidden" name="pageUri" value="">
       <div class="mb-3 form-floating">
         <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name">
         <label for="firstname">First Name</label>
@@ -82,8 +84,17 @@
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
     crossorigin="anonymous"></script>
     <!-- Start of HubSpot Embed Code -->
-      <script type="text/javascript" id="hs-script-loader" async defer src="https://js.hs-scripts.com/24084423.js"></script>
+    <script type="text/javascript" id="hs-script-loader" async defer src="https://js.hs-scripts.com/24084423.js"></script>
     <!-- End of HubSpot Embed Code -->
+    <script>
+      document.querySelector('input[name="pageName"]').value = document.title;
+      document.querySelector('input[name="pageUri"]').value = window.location.href;
+      setTimeout(function() {
+        if (__hsUserToken) {
+          document.querySelector('input[name="hutk"]').value = __hsUserToken;
+        }
+      }, 3000);
+    </script>
 </body>
 
 </html>
