@@ -17,7 +17,7 @@
     <button type="submit">Generate QR Code</button>
   </form>
   <div id="qr-code"></div>
-  <canvas id="qr-code"></canvas>
+  <div id="save" style="margin-top: 20px; display: none;">Right Click to Save</div>
   <script src="./qrcode-with-logos.min.js"></script>
   <script>
     document.querySelector('form').addEventListener('submit', (event) => {
@@ -49,6 +49,7 @@
       const $qrCode = document.getElementById('qr-code');
       $qrCode.innerHTML = '';
       $qrCode.append(qrCode.defaultOption.canvas);
+      document.getElementById('save').style.display = 'block';
     });
   </script>
 </body>
