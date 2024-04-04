@@ -16,8 +16,8 @@
     <textarea id="content" placeholder="Enter the content to generate QR code"></textarea>
     <button type="submit">Generate QR Code</button>
   </form>
-  <div id="qr-code"></div>
   <div id="save" style="margin-top: 20px; display: none;">Right Click to Save</div>
+  <div id="qr-code"></div>
   <script src="./qrcode-with-logos.min.js"></script>
   <script>
     document.querySelector('form').addEventListener('submit', (event) => {
@@ -30,8 +30,8 @@
       const qrCode = new QrCodeWithLogo({
         canvas: document.createElement('canvas'),
         content,
-        width: 256,
-        height: 256,
+        width: 1000,
+        height: 1000,
         nodeQrCodeOptions: {
           errorCorrectionLevel: 'H',
           color: {
